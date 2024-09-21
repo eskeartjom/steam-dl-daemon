@@ -151,6 +151,9 @@ class Program
                 
                 p.Start();
                 p.WaitForExit();
+
+                if (steamDlRunning == false)
+                    break;
             }
         }
     }
