@@ -70,16 +70,30 @@ class Program
         foreach (Game game in gameList)
         {
             Process p = new Process();
-            p.StartInfo.FileName = config.SteamDLApp;
-            p.StartInfo.Arguments = string.Format(
-                "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} --verify",
-                game.Username,
-                game.AppId,
-                game.Platform,
-                game.Architecture,
-                game.Language,
-                game.Output
-            );
+            
+            if (game.Language == "all")
+            {
+                p.StartInfo.Arguments = string.Format(
+                    "-u {0} -a {1} --os {2} --arch {3} --all-languages -o {4} --verify",
+                    game.Username,
+                    game.AppId,
+                    game.Platform,
+                    game.Architecture,
+                    game.Output
+                );
+            }
+            else
+            {
+                p.StartInfo.Arguments = string.Format(
+                    "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} --verify",
+                    game.Username,
+                    game.AppId,
+                    game.Platform,
+                    game.Architecture,
+                    game.Language,
+                    game.Output
+                );
+            }
             
             p.Start();
             p.WaitForExit();
@@ -139,15 +153,29 @@ class Program
 
             foreach (Game game in gameList)
             {
-                p.StartInfo.Arguments = string.Format(
-                    "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} --verify",
-                    game.Username,
-                    game.AppId,
-                    game.Platform,
-                    game.Architecture,
-                    game.Language,
-                    game.Output
-                );
+                if (game.Language == "all")
+                {
+                    p.StartInfo.Arguments = string.Format(
+                        "-u {0} -a {1} --os {2} --arch {3} --all-languages -o {4} --verify",
+                        game.Username,
+                        game.AppId,
+                        game.Platform,
+                        game.Architecture,
+                        game.Output
+                    );
+                }
+                else
+                {
+                    p.StartInfo.Arguments = string.Format(
+                        "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} --verify",
+                        game.Username,
+                        game.AppId,
+                        game.Platform,
+                        game.Architecture,
+                        game.Language,
+                        game.Output
+                    );
+                }
                 
                 p.Start();
                 p.WaitForExit();
