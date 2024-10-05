@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 using System.Timers;
 using Newtonsoft.Json;
 using Timer = System.Timers.Timer;
@@ -74,24 +75,26 @@ class Program
             if (game.Language == "all")
             {
                 p.StartInfo.Arguments = string.Format(
-                    "-u {0} -a {1} --os {2} --arch {3} --all-languages -o {4} --verify",
+                    "-u {0} -a {1} --os {2} --arch {3} --all-languages -o {4} -i {5}",
                     game.Username,
                     game.AppId,
                     game.Platform,
                     game.Architecture,
-                    game.Output
+                    game.Output,
+                    BuildIngoreParam(game.Ignore)
                 );
             }
             else
             {
                 p.StartInfo.Arguments = string.Format(
-                    "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} --verify",
+                    "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} -i {6}",
                     game.Username,
                     game.AppId,
                     game.Platform,
                     game.Architecture,
                     game.Language,
-                    game.Output
+                    game.Output,
+                    BuildIngoreParam(game.Ignore)
                 );
             }
             
@@ -156,24 +159,26 @@ class Program
                 if (game.Language == "all")
                 {
                     p.StartInfo.Arguments = string.Format(
-                        "-u {0} -a {1} --os {2} --arch {3} --all-languages -o {4} --verify",
+                        "-u {0} -a {1} --os {2} --arch {3} --all-languages -o {4} -i {5}",
                         game.Username,
                         game.AppId,
                         game.Platform,
                         game.Architecture,
-                        game.Output
+                        game.Output,
+                        BuildIngoreParam(game.Ignore)
                     );
                 }
                 else
                 {
                     p.StartInfo.Arguments = string.Format(
-                        "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} --verify",
+                        "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} -i {6",
                         game.Username,
                         game.AppId,
                         game.Platform,
                         game.Architecture,
                         game.Language,
-                        game.Output
+                        game.Output,
+                        BuildIngoreParam(game.Ignore)
                     );
                 }
                 
@@ -192,5 +197,20 @@ class Program
 
         return JsonConvert.DeserializeObject<Game[]>(json);
         
+    }
+
+    private static string BuildIngoreParam(int[] ignore)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < ignore.Length; i++)
+        {
+            sb.Append(ignore[i]);
+
+            if (i < ignore.Length - 1)
+                sb.Append(",");
+        }
+        
+        return sb.ToString();
     }
 }

@@ -8,4 +8,5 @@ public class Game
     public string Architecture { get; set; }
     public string Language { get; set; }
     public string Output { get; set; }
+    public int[] Ignore { get; set; }
 }
