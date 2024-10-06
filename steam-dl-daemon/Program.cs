@@ -216,6 +216,13 @@ class Program
     {
         StringBuilder sb = new StringBuilder();
 
+        sb.Append("\"");
+
+        if (ignore == null)
+        {
+            sb.Append("\"");
+            return sb.ToString();
+        }
         for (int i = 0; i < ignore.Length; i++)
         {
             sb.Append(ignore[i]);
@@ -224,6 +231,7 @@ class Program
                 sb.Append(",");
         }
         
+        sb.Append("\"");
         return sb.ToString();
     }
 }
