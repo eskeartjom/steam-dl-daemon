@@ -98,6 +98,8 @@ class Program
                 );
             }
             
+            Console.WriteLine(string.Format("Using parameters: {0}", p.StartInfo.Arguments));
+            
             p.Start();
             p.WaitForExit();
         }
@@ -174,8 +176,6 @@ class Program
                         game.Output,
                         BuildIngoreParam(game.Ignore)
                     );
-                    
-                    Console.WriteLine(string.Format("Using parameters: {0}", p.StartInfo.Arguments));
                 }
                 else
                 {
@@ -190,6 +190,8 @@ class Program
                         BuildIngoreParam(game.Ignore)
                     );
                 }
+                
+                Console.WriteLine(string.Format("Using parameters: {0}", p.StartInfo.Arguments));
                 
                 p.Start();
                 p.WaitForExit();
