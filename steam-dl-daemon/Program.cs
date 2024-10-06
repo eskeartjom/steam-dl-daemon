@@ -107,8 +107,8 @@ class Program
 
     private static void CheckTime(object source, ElapsedEventArgs e)
     {
-        if(!steamDlRunning)
-            Console.WriteLine(e.SignalTime.ToString("HH:mm:ss"));
+        //if(!steamDlRunning)
+        //    Console.WriteLine(e.SignalTime.ToString("HH:mm:ss"));
         
         if (e.SignalTime.ToString("HH:mm:ss") == config.EndTime.ToString("HH:mm:ss") && steamDlRunning == true)
         {
@@ -174,6 +174,8 @@ class Program
                         game.Output,
                         BuildIngoreParam(game.Ignore)
                     );
+                    
+                    Console.WriteLine(string.Format("Using parameters: {0}", p.StartInfo.Arguments));
                 }
                 else
                 {
@@ -191,6 +193,8 @@ class Program
                 
                 p.Start();
                 p.WaitForExit();
+                
+                Console.WriteLine(string.Format("Process exited with {0}", p.ExitCode));
 
                 if (steamDlRunning == false)
                     break;
