@@ -107,8 +107,13 @@ class Program
 
     private static void CheckTime(object source, ElapsedEventArgs e)
     {
+        if(!steamDlRunning)
+            Console.WriteLine(e.SignalTime.ToString("HH:mm:ss"));
+        
         if (e.SignalTime.ToString("HH:mm:ss") == config.EndTime.ToString("HH:mm:ss") && steamDlRunning == true)
         {
+            Console.WriteLine("Stopping Downloads...");
+            
             steamDlRunning = false;
 
             if (p == null)
@@ -149,6 +154,8 @@ class Program
         
         if (e.SignalTime.ToString("HH:mm:ss") == config.StartTime.ToString("HH:mm:ss"))
         {
+            Console.WriteLine("Starting Downloads...");
+            
             if (p == null)
                 return;
             
@@ -171,7 +178,7 @@ class Program
                 else
                 {
                     p.StartInfo.Arguments = string.Format(
-                        "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} -i {6",
+                        "-u {0} -a {1} --os {2} --arch {3} --language {4} -o {5} -i {6}",
                         game.Username,
                         game.AppId,
                         game.Platform,
